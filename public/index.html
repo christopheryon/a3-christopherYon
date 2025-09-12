@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <script src="js/main.js"></script>
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- get rid of favicon error -->
+    <link href="data:;base64,iVBORw0KGgo=" rel="icon">
+</head>
+<body>
+<div class="mainContainer">
+
+    <div class="warningContainer">
+        <div class="warning">
+            <div class="warningIcon">
+                <img src="assets/warn.svg" alt="warning icon">
+            </div>
+            <div>
+                <p>
+                    This project stores passwords in plaintext, and makes them accessible to any visitor!
+                    Please do not put any sensitive information in here.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="header">
+        <h1>
+            My Passwords
+        </h1>
+    </div>
+    <div id="passwordTableContainer">
+        Loading passwords...
+    </div>
+    <div>
+        <button id="newPassword">
+            <span id="plus">
+                +
+            </span>
+            <span id="new">
+                New
+            </span>
+        </button>
+    </div>
+</div>
+</body>
+</html>
