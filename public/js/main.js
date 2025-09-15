@@ -184,6 +184,7 @@ const getPasswords = async () => {
 const createPasswordTable = async () => {
     const table = document.createElement("table")
     table.id = "passwordTable"
+    table.className="border"
     const head = table.createTHead()
     const headRow = head.insertRow()
     const headers = ["Website", "Username", "Password", "Strength"];

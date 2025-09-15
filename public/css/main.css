@@ -5,78 +5,41 @@
 
 #passwordTableContainer {
     table {
-        border-spacing: 0;
         width: 90vw;
     }
 
     th {
         padding: 10px;
-        border-top: 2px solid;
-        border-bottom: 1px solid;
-        border-left: 1px solid;
-        border-right: 1px solid;
         font-weight: 500
-    }
-
-    th:first-child {
-        border-top-left-radius: 20px;
-    }
-
-    th:last-child {
-        border-top-right-radius: 20px;
-    }
-
-    th:first-child {
-        border-left: 2px solid;
-    }
-
-    th:last-child {
-        border-right: 2px solid;
     }
 
     tbody {
         tr:last-child {
-            td:not(:has(button)) {
-                border-bottom: 2px solid;
-            }
 
             td:first-child {
-                border-bottom-left-radius: 20px;
-
                 input {
-                    border-bottom-left-radius: 15px;
                     padding-left: 5px;
                     width: 93%;
                 }
             }
-
-            td:nth-child(4) {
-                border-bottom-right-radius: 20px;
-            }
-        }
-
-        td:first-child {
-            border-left: 2px solid;
-        }
-
-        td:nth-child(4) {
-            border-right: 2px solid;
         }
     }
 
     td {
         width: 20%;
-        max-width: 0;
         overflow: scroll;
+        scrollbar-color: #9DB8F2 #9DB8F2;
+        max-width: 0;
         padding: 10px;
     }
 
-    td:not(:has(button)) {
-        border: 1px solid;
+    td:has(button) {
+        border: none;
     }
 
     /* prevent buttons from stacking */
-    td:has(button){
+
+    td:has(button) {
         white-space: nowrap;
     }
 
@@ -113,7 +76,8 @@
         margin-right: 5px;
         width: 50px;
     }
-    .delete-cancel-button{
+
+    .delete-cancel-button {
         width: 60px;
     }
 
@@ -186,8 +150,8 @@
 
     #new {
         font-size: 20pt;
-        margin-left:-5px;
-        margin-right:10px
+        margin-left: -5px;
+        margin-right: 10px
     }
 
 }
