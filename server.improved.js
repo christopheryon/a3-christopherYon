@@ -1,12 +1,8 @@
-const http = require("http"),
-    fs = require("fs"),
-    // IMPORTANT: you must run `npm install` in the directory for this assignment
-    // to install the mime library if you"re testing this on your local machine.
-    // However, Glitch will install it automatically by looking in your package.json
-    // file.
-    mime = require("mime"),
-    dir = "public/",
-    port = 3000
+port = 3000
+const express = require('express')
+const app = express()
+app.use(express.static('public'))
+app.use(express.json());
 
 // calculates the strength of a given password based on the bits of entropy.
 // this measure of strength is technically only valid for randomly-generated
@@ -49,9 +45,21 @@ const calculateStrength = (password) => {
 }
 
 const passwordStore = [
-    {"id": 1, "website":"https://google.com", "username": "mycoolusername", "password": "myverystrongpassword", "strength": ""},
-    {"id": 2, "website":"https://youtube.com","username": "godofdestruction", "password": "password!", "strength": ""},
-    {"id": 3, "website":"https://wpi.edu", "username": "isthistaken", "password": "password1", "strength": ""},
+    {
+        "id": 1,
+        "website": "https://google.com",
+        "username": "mycoolusername",
+        "password": "myverystrongpassword",
+        "strength": ""
+    },
+    {
+        "id": 2,
+        "website": "https://youtube.com",
+        "username": "godofdestruction",
+        "password": "password!",
+        "strength": ""
+    },
+    {"id": 3, "website": "https://wpi.edu", "username": "isthistaken", "password": "password1", "strength": ""},
 ]
 
 let idCounter = 4;
@@ -60,101 +68,50 @@ for (const passwordStoreElement of passwordStore) {
     passwordStoreElement.strength = calculateStrength(passwordStoreElement.password)
 }
 
+app.get('/passwords', (req, res) => {
+    res.json(passwordStore)
+})
 
-const server = http.createServer(function (request, response) {
-    if (request.method === "GET") {
-        handleGet(request, response)
-    } else if (request.method === "POST") {
-        handlePost(request, response)
+app.post('/save', (req, res) => {
+    const entry = req.body
+    if (entry.id > -1) {
+        const item = passwordStore.findIndex(value => value.id === entry.id)
+        if (item > -1) {
+            const record = passwordStore[item]
+            record.website = entry.website
+            record.username = entry.username
+            record.password = entry.password
+            record.strength = calculateStrength(entry.password)
+            res.send("Edited successfully")
+        } else {
+            res.statusCode = 400
+            res.send("Item not found")
+        }
+    } else {
+        passwordStore.push({
+            id: idCounter,
+            website: entry.website,
+            username: entry.username,
+            password: entry.password,
+            strength: calculateStrength(entry.password)
+        })
+        idCounter++
+        res.send("Submitted successfully")
     }
 })
 
-
-const handleGet = function (request, response) {
-    const filename = dir + request.url.slice(1)
-    if (request.url === "/") {
-        sendFile(response, "public/index.html")
-    } else if (request.url === "/passwords") {
-        // who needs authentication? :)
-        response.writeHead(200, "OK", {"Content-Type": "application/json"})
-        response.end(JSON.stringify(passwordStore))
+app.post('/delete', (req, res) => {
+    const entry = req.body
+    const item = passwordStore.findIndex(value => value.id === entry.id)
+    if (item > -1) {
+        passwordStore.splice(item, 1)
+        res.send("Deleted successfully")
     } else {
-        sendFile(response, filename)
+        res.statusCode = 400
+        res.send("Item not found")
     }
-}
+})
 
-const handlePost = function (request, response) {
-    let dataString = ""
-    request.on("data", (data) => {
-        dataString += data
-    })
-    request.on("end", () => {
-        if (request.url === "/save") {
-            const entry = JSON.parse(dataString)
-            if (entry.id > -1) {
-                const item = passwordStore.findIndex(value => value.id === entry.id)
-                if (item > -1) {
-                    const record = passwordStore[item]
-                    record.website = entry.website
-                    record.username = entry.username
-                    record.password = entry.password
-                    record.strength = calculateStrength(entry.password)
-                    response.writeHead(200, "OK", {"Content-Type": "text/plain"})
-                    response.end("Edited successfully")
-                } else {
-                    response.writeHead(400, "Bad Request", {"Content-Type": "text/plain"})
-                    response.end("Item not found")
-                }
-            } else {
-                passwordStore.push({
-                    id: idCounter,
-                    website: entry.website,
-                    username: entry.username,
-                    password: entry.password,
-                    strength: calculateStrength(entry.password)
-                })
-                idCounter++
-                response.writeHead(200, "OK", {"Content-Type": "text/plain"})
-                response.end("Submitted successfully")
-            }
-        } else if (request.url === "/delete") {
-            const entry = JSON.parse(dataString)
-            const item = passwordStore.findIndex(value => value.id === entry.id)
-            if (item > -1) {
-                passwordStore.splice(item, 1)
-                response.writeHead(200, "OK", {"Content-Type": "text/plain"})
-                response.end("Deleted successfully")
-            } else {
-                response.writeHead(400, "Bad Request", {"Content-Type": "text/plain"})
-                response.end("Item not found")
-            }
-        } else {
-            response.writeHead(400, "Bad Request", {"Content-Type": "text/plain"})
-            response.end("Unsupported endpoint")
-        }
-    })
-}
-
-const sendFile = function (response, filename) {
-    const type = mime.getType(filename)
-
-    fs.readFile(filename, function (err, content) {
-
-        // if the error = null, then we"ve loaded the file successfully
-        if (err === null) {
-
-            // status code: https://httpstatuses.com
-            response.writeHeader(200, {"Content-Type": type})
-            response.end(content)
-
-        } else {
-
-            // file not found, error code 404
-            response.writeHeader(404)
-            response.end("404 Error: File Not Found")
-
-        }
-    })
-}
-
-server.listen(process.env.PORT || port)
+app.listen(port, () => {
+    console.log(`Express server listening on port ${port}`)
+})

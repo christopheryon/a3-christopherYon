@@ -36,6 +36,10 @@ const savePassword = async (event, website, username, password, id = -1) => {
     }
     const response = await fetch("/save", {
         method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         body
     })
     await createPasswordTable()
@@ -72,7 +76,7 @@ const createPassword = async (event) => {
     newPasswordRow.insertCell().appendChild(passwordInput)
     const strengthCell = newPasswordRow.insertCell()
     strengthCell.append("Make it strong!")
-    strengthCell.className="strengthCell"
+    strengthCell.className = "strengthCell"
     const newPasswordForm = document.createElement("form")
     wrap(table, newPasswordForm)
     const saveButton = document.createElement("button")
@@ -104,6 +108,10 @@ const deletePassword = async (id) => {
         body = JSON.stringify(json)
     const response = await fetch("/delete", {
         method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         body
     })
     await createPasswordTable()
