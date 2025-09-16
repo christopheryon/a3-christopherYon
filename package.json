@@ -1,7 +1,7 @@
 {
-  "name": "a2-christopheryon",
+  "name": "a3-christopheryon",
   "version": "1.0",
-  "description": "Webware Assignment 2",
+  "description": "Webware Assignment 3",
   "author": "Christopher Yon",
   "scripts": {
     "start": "node server.improved.js"
