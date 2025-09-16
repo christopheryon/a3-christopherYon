@@ -237,4 +237,5 @@ window.onload = async function () {
     const newPasswordButton = document.getElementById("newPassword");
     newPasswordButton.onclick = createPassword
     await createPasswordTable()
+    let theme = await ui("theme", "#8dcdff");
 }
