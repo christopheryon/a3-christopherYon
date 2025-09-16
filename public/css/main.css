@@ -8,21 +8,8 @@
         width: 90vw;
     }
 
-    th {
-        padding: 10px;
-        font-weight: 500
-    }
-
-    tbody {
-        tr:last-child {
-
-            td:first-child {
-                input {
-                    padding-left: 5px;
-                    width: 93%;
-                }
-            }
-        }
+    input{
+        width: 97%
     }
 
     td {
@@ -30,7 +17,6 @@
         overflow: scroll;
         scrollbar-color: #9DB8F2 #9DB8F2;
         max-width: 0;
-        padding: 10px;
     }
 
     td:has(button) {
@@ -43,27 +29,6 @@
         white-space: nowrap;
     }
 
-    input {
-        color: #030E26;
-        background-color: #CED7F5;
-        border: none;
-        height: 30px;
-        width: 95%;
-        margin-left: 2%;
-        font-family: inherit;
-        font-size: 100%
-    }
-
-    input:focus {
-        outline: none;
-        box-shadow: 0 0 3px 2px #CED7F5
-    }
-
-
-    button {
-        border: none;
-        color: #030E26;
-    }
 
     .editPasswordRow {
         td:has(input) {
@@ -88,41 +53,8 @@
 
 }
 
-.warning {
-    border: 1px solid #BA4A00;
-    margin-bottom: 10px;
-    max-width: 650px;
-    padding: 10px;
-
-    p {
-        margin: 0 10px 0 5px;
-        color: #BA4A00;
-    }
-
-    .warningIcon {
-        display: flex;
-        align-items: center;
-
-        img {
-            height: 25px;
-            width: 25px;
-        }
-
-    }
-
-    background-color: #FFA970;
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-}
-
-.warningContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: -20px;
-}
-
 .mainContainer {
+    margin-top: 7vh;
     margin-left: 10vw;
     margin-right: 10vw;
     display: flex;
@@ -134,23 +66,20 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
-    border-radius: 15px;
     height: 50px;
-    width: 100px;
-    padding: 0;
     margin: 0;
     display: flex;
     user-select: none;
-
+    font-weight: normal;
     #plus {
         font-size: 40pt;
-        margin-top: -13px;
-        margin-left: 8px;
+        margin-top: -11px;
+        margin-left: 10px;
     }
 
     #new {
         font-size: 20pt;
-        margin-left: -5px;
+        margin-left: -7px;
         margin-right: 10px
     }
 
@@ -160,10 +89,10 @@ button {
     transition: 75ms;
     background-color: #9DB8F2;
     color: #030E26;
-    border: none;
-    border-radius: 3px;
-    font-family: inherit;
-    font-size: 1em;
+}
+
+button:disabled{
+    cursor: initial !important; /* remove cursor change over invisible unclickable buttons */
 }
 
 button:hover {
@@ -174,10 +103,4 @@ button:hover {
 button:active {
     transition: 75ms;
     scale: 100%;
-}
-
-h1 {
-    font-weight: 500;
-    font-size: 27pt;
-    margin-bottom: 7px;
 }

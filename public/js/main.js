@@ -71,9 +71,11 @@ const createPassword = async (event) => {
     passwordInput.id = "passwordInput"
     passwordInput.type = "text"
     passwordInput.spellcheck = false
-    newPasswordRow.insertCell().appendChild(websiteInput)
-    newPasswordRow.insertCell().appendChild(usernameInput)
-    newPasswordRow.insertCell().appendChild(passwordInput)
+    const inputContainer = document.createElement("div")
+    inputContainer.className="field border"
+    newPasswordRow.insertCell().appendChild(inputContainer).appendChild(websiteInput)
+    newPasswordRow.insertCell().appendChild(inputContainer.cloneNode()).appendChild(usernameInput)
+    newPasswordRow.insertCell().appendChild(inputContainer.cloneNode()).appendChild(passwordInput)
     const strengthCell = newPasswordRow.insertCell()
     strengthCell.append("Make it strong!")
     strengthCell.className = "strengthCell"
@@ -126,7 +128,8 @@ const editPassword = async (event, id, rowIndex) => {
         if (i !== rowIndex) {
             const buttons = rows[i].getElementsByTagName("button")
             for (const button of buttons) {
-                button.setAttribute("style", "display: none;")
+                button.setAttribute("style", "opacity: 0;")
+                button.setAttribute("disabled", "")
             }
         }
     }
@@ -149,9 +152,16 @@ const editPassword = async (event, id, rowIndex) => {
     passwordField.type = "text"
     passwordField.value = passwordCell.textContent
     passwordField.spellcheck = false
-    websiteCell.replaceWith(websiteField)
-    usernameCell.replaceWith(usernameField)
-    passwordCell.replaceWith(passwordField)
+    const webInputContainer = document.createElement("div")
+    webInputContainer.className="field border"
+    const userInputContainer = webInputContainer.cloneNode()
+    const passInputContainer = webInputContainer.cloneNode()
+    webInputContainer.appendChild(websiteField)
+    userInputContainer.appendChild(usernameField)
+    passInputContainer.appendChild(passwordField)
+    websiteCell.replaceWith(webInputContainer)
+    usernameCell.replaceWith(userInputContainer)
+    passwordCell.replaceWith(passInputContainer)
     const cancelButton = document.createElement("button")
     cancelButton.innerHTML = "Cancel"
     cancelButton.onclick = async (event) => {
