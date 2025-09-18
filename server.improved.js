@@ -3,6 +3,24 @@ const express = require('express')
 const app = express()
 app.use(express.static('public'))
 app.use(express.json());
+require('dotenv').config({quiet: true})
+
+const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
+const user = process.env.DB_USER
+const pass = process.env.DB_PASSWORD
+const url = process.env.DB_URL
+const uri = `mongodb+srv://${user}:${pass}@${url}/?retryWrites=true&w=majority&appName=Cluster0`;
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
+});
+const passwordEntries = client.db("password_records").collection("entries")
+
 
 // calculates the strength of a given password based on the bits of entropy.
 // this measure of strength is technically only valid for randomly-generated
@@ -44,71 +62,64 @@ const calculateStrength = (password) => {
     }
 }
 
-const passwordStore = [
-    {
-        "id": 1,
-        "website": "https://google.com",
-        "username": "mycoolusername",
-        "password": "myverystrongpassword",
-        "strength": ""
-    },
-    {
-        "id": 2,
-        "website": "https://youtube.com",
-        "username": "godofdestruction",
-        "password": "password!",
-        "strength": ""
-    },
-    {"id": 3, "website": "https://wpi.edu", "username": "isthistaken", "password": "password1", "strength": ""},
-]
 
-let idCounter = 4;
-
-for (const passwordStoreElement of passwordStore) {
-    passwordStoreElement.strength = calculateStrength(passwordStoreElement.password)
-}
-
-app.get('/passwords', (req, res) => {
-    res.json(passwordStore)
+app.get('/passwords', async (req, res) => {
+    let response = []
+    const entryCursor = await passwordEntries.find()
+    while (await entryCursor.hasNext()) {
+        const current = await entryCursor.next()
+        response.push({
+            "id": current._id.toString(),
+            "website": current.website,
+            "username": current.username,
+            "password": current.password,
+            "strength": current.strength
+        })
+    }
+    res.json(response)
 })
 
-app.post('/save', (req, res) => {
+app.post('/save', async (req, res) => {
     const entry = req.body
-    if (entry.id > -1) {
-        const item = passwordStore.findIndex(value => value.id === entry.id)
-        if (item > -1) {
-            const record = passwordStore[item]
-            record.website = entry.website
-            record.username = entry.username
-            record.password = entry.password
-            record.strength = calculateStrength(entry.password)
+    if (entry.id !== -1) {
+        const query = {_id: new ObjectId(entry.id)}
+        const updateOperation = {
+            $set: {
+                website: entry.website,
+                username: entry.username,
+                password: entry.password,
+                strength: calculateStrength(entry.password)
+            }
+        }
+        try {
+            await passwordEntries.updateOne(query, updateOperation)
             res.send("Edited successfully")
-        } else {
+        } catch (error) {
             res.statusCode = 400
-            res.send("Item not found")
+            console.log(error)
+            res.send("Error editing item: " + error)
         }
     } else {
-        passwordStore.push({
-            id: idCounter,
+        const newEntry = {
             website: entry.website,
             username: entry.username,
             password: entry.password,
             strength: calculateStrength(entry.password)
-        })
-        idCounter++
+        }
+        await passwordEntries.insertOne(newEntry)
         res.send("Submitted successfully")
     }
 })
 
-app.post('/delete', (req, res) => {
+app.post('/delete', async (req, res) => {
     const entry = req.body
-    const item = passwordStore.findIndex(value => value.id === entry.id)
-    if (item > -1) {
-        passwordStore.splice(item, 1)
+    const query = {_id: new ObjectId(entry.id)}
+    try {
+        await passwordEntries.deleteOne(query)
         res.send("Deleted successfully")
-    } else {
+    } catch (error) {
         res.statusCode = 400
-        res.send("Item not found")
+        res.send("Error deleting item: " + error)
     }
 })
 
