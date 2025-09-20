@@ -241,13 +241,14 @@ const setUserName = async () => {
     header.innerHTML = `<h2>${username}'s Passwords</h2> <button id="logout" class="medium">Log Out</button>`
 }
 window.onload = async function () {
-    let theme = await ui("theme", "#8dcdff");
+    createPasswordTable()
+    setUserName().then(() => {
+        const logoutButton = document.getElementById("logout")
+        logoutButton.onclick = () => {
+            window.location.href = "/logout"
+        }
+    })
+    ui("theme", "#8dcdff");
     const newPasswordButton = document.getElementById("newPassword");
     newPasswordButton.onclick = createPassword
-    await createPasswordTable()
-    await setUserName()
-    const logoutButton = document.getElementById("logout")
-    logoutButton.onclick = () => {
-        window.location.href = "/logout"
-    }
 }

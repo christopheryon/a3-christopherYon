@@ -8,14 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"
             type="module"></script>
     <script>
-        window.onload = async function () {
-            let theme = await ui("theme", "#8dcdff");
+        window.onload = function () {
+            ui("theme", "#8dcdff");
         }
     </script>
     <link href="css/main.css" rel="stylesheet">
 </head>
 <body class="dark login">
-<a href="/auth/github" class="center">
+<a class="center" href="/auth/github">
     <button>Log In With GitHub</button>
 </a>
 </body>
