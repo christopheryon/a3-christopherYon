@@ -101,8 +101,10 @@ app.get('/auth/github/callback', passport.authenticate('github', {failureRedirec
 });
 
 app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
+    req.logout(() => {
+        res.redirect('/')
+    });
+
 });
 
 
@@ -111,27 +113,29 @@ app.get('/login', (req, res) => {
 });
 app.get('/passwords', async (req, res) => {
     if (req.user) {
-        console.log("req user for passwords: " + JSON.stringify(req.user.id))
+        const entryCursor = await passwordEntries.find({associated_user: req.user.id})
+        let response = []
+        while (await entryCursor.hasNext()) {
+            const current = await entryCursor.next()
+            response.push({
+                "id": current._id.toString(),
+                "website": current.website,
+                "username": current.username,
+                "password": current.password,
+                "strength": current.strength
+            })
+        }
+        res.json(response)
+    } else {
+        res.statusCode = 400
+        res.send("No authenticated user")
     }
-    let response = []
-    const entryCursor = await passwordEntries.find()
-    while (await entryCursor.hasNext()) {
-        const current = await entryCursor.next()
-        response.push({
-            "id": current._id.toString(),
-            "website": current.website,
-            "username": current.username,
-            "password": current.password,
-            "strength": current.strength
-        })
-    }
-    res.json(response)
 })
 
 app.post('/save', async (req, res) => {
     const entry = req.body
-    if (entry.id !== -1) {
-        const query = {_id: new ObjectId(entry.id)}
+    if (entry.id !== -1 && req.user) {
+        const query = {_id: new ObjectId(entry.id), associated_user: req.user.id}
         const updateOperation = {
             $set: {
                 website: entry.website,
@@ -149,29 +153,49 @@ app.post('/save', async (req, res) => {
             res.send("Error editing item: " + error)
         }
     } else {
-        const newEntry = {
-            website: entry.website,
-            username: entry.username,
-            password: entry.password,
-            strength: calculateStrength(entry.password)
+        if (req.user) {
+            const newEntry = {
+                associated_user: req.user.id,
+                website: entry.website,
+                username: entry.username,
+                password: entry.password,
+                strength: calculateStrength(entry.password)
+            }
+            await passwordEntries.insertOne(newEntry)
+            res.send("Submitted successfully")
+        } else {
+            res.statusCode = 400
+            res.send("No authenticated user")
         }
-        await passwordEntries.insertOne(newEntry)
-        res.send("Submitted successfully")
+
     }
 })
 
 app.post('/delete', async (req, res) => {
     const entry = req.body
-    const query = {_id: new ObjectId(entry.id)}
-    try {
-        await passwordEntries.deleteOne(query)
-        res.send("Deleted successfully")
-    } catch (error) {
+    if (req.user) {
+        const query = {_id: new ObjectId(entry.id), associated_user: req.user.id}
+        try {
+            await passwordEntries.deleteOne(query)
+            res.send("Deleted successfully")
+        } catch (error) {
+            res.statusCode = 400
+            res.send("Error deleting item: " + error)
+        }
+    } else {
         res.statusCode = 400
-        res.send("Error deleting item: " + error)
+        res.send("No authenticated user")
+    }
+
+})
+app.get('/username', (req, res) => {
+    if (req.user) {
+        res.send(req.user.username)
+    } else {
+        res.statusCode = 400
+        res.send("No authenticated user")
     }
 })
-
 app.listen(port, () => {
     console.log(`Express server listening on port ${port}`)
 })

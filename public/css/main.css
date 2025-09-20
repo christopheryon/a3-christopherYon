@@ -1,11 +1,10 @@
 
-
 #passwordTableContainer {
     table {
         width: 90vw;
     }
 
-    input{
+    input {
         width: 97%
     }
 
@@ -68,6 +67,7 @@
     display: flex;
     user-select: none;
     font-weight: normal;
+
     #plus {
         font-size: 40pt;
         margin-top: -11px;
@@ -84,11 +84,9 @@
 
 button {
     transition: 75ms;
-    background-color: #9DB8F2;
-    color: #030E26;
 }
 
-button:disabled{
+button:disabled {
     cursor: initial !important; /* remove cursor change over invisible unclickable buttons */
 }
 
@@ -100,4 +98,18 @@ button:hover {
 button:active {
     transition: 75ms;
     scale: 100%;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+html, body {
+    height: 100%;
+}
+
+.login {
+    display: flex;
+    align-items: center;
 }

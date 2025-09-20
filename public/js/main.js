@@ -72,7 +72,7 @@ const createPassword = async (event) => {
     passwordInput.type = "text"
     passwordInput.spellcheck = false
     const inputContainer = document.createElement("div")
-    inputContainer.className="field border"
+    inputContainer.className = "field border"
     newPasswordRow.insertCell().appendChild(inputContainer).appendChild(websiteInput)
     newPasswordRow.insertCell().appendChild(inputContainer.cloneNode()).appendChild(usernameInput)
     newPasswordRow.insertCell().appendChild(inputContainer.cloneNode()).appendChild(passwordInput)
@@ -153,7 +153,7 @@ const editPassword = async (event, id, rowIndex) => {
     passwordField.value = passwordCell.textContent
     passwordField.spellcheck = false
     const webInputContainer = document.createElement("div")
-    webInputContainer.className="field border"
+    webInputContainer.className = "field border"
     const userInputContainer = webInputContainer.cloneNode()
     const passInputContainer = webInputContainer.cloneNode()
     webInputContainer.appendChild(websiteField)
@@ -194,7 +194,7 @@ const getPasswords = async () => {
 const createPasswordTable = async () => {
     const table = document.createElement("table")
     table.id = "passwordTable"
-    table.className="border"
+    table.className = "border"
     const head = table.createTHead()
     const headRow = head.insertRow()
     const headers = ["Website", "Username", "Password", "Strength"];
@@ -232,10 +232,22 @@ const createPasswordTable = async () => {
     container.innerHTML = ""
     container.appendChild(table)
 }
-
+const setUserName = async () => {
+    const header = document.getElementById("header")
+    const response = await fetch("/username", {
+        method: "GET"
+    })
+    const username = await response.text()
+    header.innerHTML = `<h2>${username}'s Passwords</h2> <button id="logout" class="medium">Log Out</button>`
+}
 window.onload = async function () {
     let theme = await ui("theme", "#8dcdff");
     const newPasswordButton = document.getElementById("newPassword");
     newPasswordButton.onclick = createPassword
     await createPasswordTable()
+    await setUserName()
+    const logoutButton = document.getElementById("logout")
+    logoutButton.onclick = () => {
+        window.location.href = "/logout"
+    }
 }
