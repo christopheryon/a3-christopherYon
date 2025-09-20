@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="The login page for a web-based password manager prototype." name="description">
     <title>Login Page</title>
     <link href="https://cdn.jsdelivr.net/npm/beercss@3.12.3/dist/cdn/beer.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/beercss@3.12.3/dist/cdn/beer.min.js" type="module"></script>
@@ -10,13 +12,38 @@
     <script>
         window.onload = function () {
             ui("theme", "#8dcdff");
+            const loginButton = document.getElementById("loginButton")
+            loginButton.onclick = () => {
+                window.location.href = "/auth/github"
+            }
         }
     </script>
     <link href="css/main.css" rel="stylesheet">
 </head>
-<body class="dark login">
-<a class="center" href="/auth/github">
-    <button>Log In With GitHub</button>
-</a>
+<body class="dark">
+<div class="loginContainer">
+
+
+<article class="login medium-width small-height">
+    <div class="center-align">
+        <h3 class="medium-space">
+            Log In
+        </h3>
+        <sub class="center-align">
+            With your GitHub account
+        </sub>
+    </div>
+    <div class="medium-space">
+
+    </div>
+
+    <div class="center-align large-space bottom-align">
+        <button id="loginButton">Log In With GitHub</button>
+    </div>
+</article>
+</div>
+
+
+
 </body>
 </html>
