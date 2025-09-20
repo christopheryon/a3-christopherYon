@@ -3,10 +3,20 @@ const express = require('express')
 const app = express()
 app.use(express.json());
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 require('dotenv').config({quiet: true})
 const passport = require('passport');
 const session_secret = process.env.EXPRESS_SESSION_SECRET
-app.use(session({secret: session_secret, resave: false, saveUninitialized: false}));
+const user = process.env.DB_USER
+const pass = process.env.DB_PASSWORD
+const url = process.env.DB_URL
+const uri = `mongodb+srv://${user}:${pass}@${url}/?retryWrites=true&w=majority&appName=Cluster0`;
+const store = new MongoDBStore({
+    uri: uri,
+    databaseName: 'password_records',
+    collection: 'sessions'
+});
+app.use(session({secret: session_secret, resave: false, saveUninitialized: false, store: store}));
 app.use(passport.initialize());
 app.use(passport.session({}));
 const GitHubStrategy = require('passport-github2').Strategy;
@@ -39,10 +49,7 @@ app.get('/', ensureAuthenticated)
 app.use(express.static('public'))
 const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const {join} = require("node:path");
-const user = process.env.DB_USER
-const pass = process.env.DB_PASSWORD
-const url = process.env.DB_URL
-const uri = `mongodb+srv://${user}:${pass}@${url}/?retryWrites=true&w=majority&appName=Cluster0`;
+
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -50,6 +57,7 @@ const client = new MongoClient(uri, {
         version: ServerApiVersion.v1, strict: true, deprecationErrors: true,
     }
 });
+
 const passwordEntries = client.db("password_records").collection("entries")
 
 
