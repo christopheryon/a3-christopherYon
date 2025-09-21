@@ -63,14 +63,17 @@ const createPassword = async (event) => {
     websiteInput.id = "websiteInput"
     websiteInput.type = "text"
     websiteInput.spellcheck = false
+    websiteInput.className = "tiny-padding"
     const usernameInput = document.createElement("input")
     usernameInput.id = "usernameInput"
     usernameInput.type = "text"
     usernameInput.spellcheck = false
+    usernameInput.className = "tiny-padding"
     const passwordInput = document.createElement("input")
     passwordInput.id = "passwordInput"
     passwordInput.type = "text"
     passwordInput.spellcheck = false
+    passwordInput.className = "tiny-padding"
     const inputContainer = document.createElement("div")
     inputContainer.className = "field border"
     newPasswordRow.insertCell().appendChild(inputContainer).appendChild(websiteInput)
@@ -144,14 +147,17 @@ const editPassword = async (event, id, rowIndex) => {
     websiteField.type = "text"
     websiteField.value = websiteCell.textContent
     websiteField.spellcheck = false
+    websiteField.className = "tiny-padding"
     const usernameField = document.createElement("input")
     usernameField.type = "text"
     usernameField.value = usernameCell.textContent
     usernameField.spellcheck = false
+    usernameField.className = "tiny-padding"
     const passwordField = document.createElement("input")
     passwordField.type = "text"
     passwordField.value = passwordCell.textContent
     passwordField.spellcheck = false
+    passwordField.className = "tiny-padding"
     const webInputContainer = document.createElement("div")
     webInputContainer.className = "field border"
     const userInputContainer = webInputContainer.cloneNode()
