@@ -1,6 +1,9 @@
 
 #passwordTableContainer {
-    table {
+    table:not(:has(button)) {
+        width: 80vw;
+    }
+    table:has(button) {
         width: 90vw;
     }
 
