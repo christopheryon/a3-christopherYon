@@ -4,7 +4,7 @@
   "description": "Webware Assignment 3",
   "author": "Christopher Yon",
   "scripts": {
-    "start": "node server.improved.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "connect-mongodb-session": "^5.0.0",
