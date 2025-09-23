@@ -46,9 +46,10 @@ const ensureAuthenticated = (req, res, next) => {
     res.redirect('/login')
 }
 app.get('/', ensureAuthenticated)
-app.use(express.static('public'))
-const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const {join} = require("node:path");
+app.use(express.static(join(__dirname, 'public')))
+const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
+
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
