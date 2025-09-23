@@ -28,23 +28,6 @@
         white-space: nowrap;
     }
 
-
-    .editPasswordRow {
-        td:has(input) {
-            padding: 0;
-        }
-
-    }
-
-    .edit-save-button {
-        margin-right: 5px;
-        width: 50px;
-    }
-
-    .delete-cancel-button {
-        width: 60px;
-    }
-
     .strengthCell {
         width: 15%;
         white-space: nowrap;
@@ -56,33 +39,6 @@
     margin-top: 7vh;
     margin-left: 10vw;
     margin-right: 10vw;
-    display: flex;
-    flex-direction: column;
-}
-
-
-#newPassword {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    height: 50px;
-    margin: 0;
-    display: flex;
-    user-select: none;
-    font-weight: normal;
-
-    #plus {
-        font-size: 40pt;
-        margin-top: -11px;
-        margin-left: 10px;
-    }
-
-    #new {
-        font-size: 20pt;
-        margin-left: -7px;
-        margin-right: 10px
-    }
-
 }
 
 button {
@@ -108,19 +64,8 @@ button:active {
     justify-content: space-between;
 }
 
-html, body {
-    height: 100%;
-}
-
 .login {
     h3 {
         margin-bottom: 5px
     }
-}
-
-.loginContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
 }
