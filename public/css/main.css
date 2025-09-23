@@ -3,6 +3,7 @@
     table:not(:has(td)) {
         width: 80vw;
     }
+
     table:has(td) {
         width: 90vw;
     }
@@ -36,13 +37,14 @@
 }
 
 .mainContainer {
-    margin-top: 7vh;
+    margin-top: 15px;
     margin-left: 10vw;
     margin-right: 10vw;
 }
 
 button {
     transition: 75ms;
+    white-space: nowrap;
 }
 
 button:disabled {
@@ -69,3 +71,4 @@ button:active {
         margin-bottom: 5px
     }
 }
+
