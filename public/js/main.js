@@ -265,7 +265,6 @@ window.onload = async function () {
             window.location.href = "/logout"
         }
     })
-    ui("theme", "#8dcdff");
     const newPasswordButton = document.getElementById("newPassword");
     newPasswordButton.onclick = createPassword
 }

@@ -7,11 +7,8 @@
     <title>Login Page</title>
     <link href="https://cdn.jsdelivr.net/npm/beercss@3.12.3/dist/cdn/beer.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/beercss@3.12.3/dist/cdn/beer.min.js" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"
-            type="module"></script>
     <script>
         window.onload = function () {
-            ui("theme", "#8dcdff");
             const loginButton = document.getElementById("loginButton")
             loginButton.onclick = () => {
                 window.location.href = "/auth/github"
@@ -26,7 +23,7 @@
 
 <article class="login medium-width">
     <div class="center-align">
-        <h3 class="medium-space">
+        <h3 class="medium-space tiny-margin bottom-margin">
             Log In
         </h3>
         <sub class="center-align">
