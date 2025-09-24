@@ -197,9 +197,10 @@ app.post('/delete', async (req, res) => {
     }
 
 })
-app.get('/username', (req, res) => {
+app.get('/user', (req, res) => {
     if (req.user) {
-        res.send(req.user.username)
+        const user = {username: req.user.username, avatar_url: JSON.parse(req.user._raw).avatar_url}
+        res.json(user)
     } else {
         res.statusCode = 400
         res.send("No authenticated user")

@@ -247,13 +247,14 @@ const createPasswordTable = async () => {
 const setUserName = async () => {
     const header = document.getElementById("header")
     const mainContainer = document.getElementsByClassName("mainContainer")[0]
-    const response = await fetch("/username", {
+    const response = await fetch("/user", {
         method: "GET"
     })
     const accountContainer = document.createElement("div")
     accountContainer.className="accountContainer bottom-margin"
-    const username = await response.text()
-    accountContainer.innerHTML=`<span><i class="extra">account_circle</i> <span class="large-text">${username}</span></span> <button id="logout" class="small circle absolute right"><i>logout</i></button>`
+    const userString = await response.text()
+    const user = JSON.parse(userString)
+    accountContainer.innerHTML=`<span><img src="${user.avatar_url}" class="circle tiny small-margin right-margin" alt="avatar image"> <span class="large-text">${user.username}</span></span> <button id="logout" class="small circle absolute right"><i>logout</i></button>`
     mainContainer.insertBefore(accountContainer,header)
 }
 window.onload = async function () {
