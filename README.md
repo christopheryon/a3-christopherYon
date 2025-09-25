@@ -14,6 +14,14 @@ The goal of the application was to create a visually appealing and easy-to-use w
 - ensureAuthenticated custom function
   - To redirect unauthenticated users to the login page when accessing a route that requires authentication
 
+## Screenshots
+
+### Login Page
+![login.png](login.png)
+
+### Main Application
+![main.png](main.png)
+
 ## Technical Achievements
 - **Tech Achievement 1 (10 pts)**: I used OAuth authentication using Passport via the GitHub strategy. The description of my challenges implementing this can be found in the main project description.
 - **Tech Achievement 2 (5 pts)**: I deployed my application on Vercel instead of Render. Once it was deployed, I found it much faster than Render for both deploying and general application performance. However, I ran into a few issues where it wasn't clear how to give it the correct start command, and even after I did, the name of the server file mattered for some reason. Lastly, I appreciated the functionality of Render to clone a public repo without linking to it as this allowed me to decide how much I wanted the hosting service to integrate with my repo. Vercel insisted on connecting to my GitHub account, and added deployment statuses to all commits with no clear way to disable them.
