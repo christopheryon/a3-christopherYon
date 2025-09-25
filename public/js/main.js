@@ -61,7 +61,7 @@ const createPassword = async (event) => {
     newPasswordRow.className = "editPasswordRow"
     const websiteInput = document.createElement("input")
     websiteInput.id = "websiteInput"
-    websiteInput.type = "text"
+    websiteInput.type = "url"
     websiteInput.spellcheck = false
     websiteInput.className = "tiny-padding"
     const usernameInput = document.createElement("input")
@@ -147,7 +147,7 @@ const editPassword = async (event, id, rowIndex) => {
     const newPasswordButton = document.getElementById("newPassword")
     newPasswordButton.setAttribute("style", "display:none")
     const websiteField = document.createElement("input")
-    websiteField.type = "text"
+    websiteField.type = "url"
     websiteField.value = websiteCell.textContent
     websiteField.spellcheck = false
     websiteField.className = "tiny-padding"
