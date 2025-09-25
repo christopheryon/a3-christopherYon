@@ -66,12 +66,14 @@ body.dark {
         /* make buttons float beside table by removing border */
         border: none;
         /* make buttons more compact */
+
         button {
             margin: 0 3px 0 0;
         }
     }
 
     /* make more space for content cells */
+
     .strengthCell {
         width: 15%;
         white-space: nowrap;
@@ -106,6 +108,15 @@ button:active {
     scale: 100%;
 }
 
-input {
-    display: none;
+label {
+    /* labels are only here for screen readers (borrowed from tailwind css sr-only class) */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
