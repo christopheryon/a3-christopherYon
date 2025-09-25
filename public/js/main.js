@@ -64,21 +64,41 @@ const createPassword = async (event) => {
     websiteInput.type = "url"
     websiteInput.spellcheck = false
     websiteInput.className = "tiny-padding"
+    websiteInput.id = "websiteField"
+    const websiteLabel = document.createElement("label")
+    websiteLabel.htmlFor = "websiteField"
+    websiteLabel.innerHTML = "Website"
     const usernameInput = document.createElement("input")
     usernameInput.id = "usernameInput"
     usernameInput.type = "text"
     usernameInput.spellcheck = false
     usernameInput.className = "tiny-padding"
+    usernameInput.id = "usernameField"
+    const usernameLabel = document.createElement("label")
+    usernameLabel.htmlFor = "usernameField"
+    usernameLabel.innerHTML = "Username"
     const passwordInput = document.createElement("input")
     passwordInput.id = "passwordInput"
     passwordInput.type = "text"
     passwordInput.spellcheck = false
     passwordInput.className = "tiny-padding"
+    passwordInput.id = "passwordField"
+    const passwordLabel = document.createElement("label")
+    passwordLabel.htmlFor = "passwordField"
+    passwordLabel.innerHTML = "Password"
     const inputContainer = document.createElement("div")
     inputContainer.className = "field border"
-    newPasswordRow.insertCell().appendChild(inputContainer).appendChild(websiteInput)
-    newPasswordRow.insertCell().appendChild(inputContainer.cloneNode()).appendChild(usernameInput)
-    newPasswordRow.insertCell().appendChild(inputContainer.cloneNode()).appendChild(passwordInput)
+    const usernameContainer = inputContainer.cloneNode()
+    const passwordContainer = inputContainer.cloneNode()
+    inputContainer.appendChild(websiteInput)
+    inputContainer.appendChild(websiteLabel)
+    usernameContainer.appendChild(usernameInput)
+    usernameContainer.appendChild(usernameLabel)
+    passwordContainer.appendChild(passwordInput)
+    passwordContainer.appendChild(passwordLabel)
+    newPasswordRow.insertCell().appendChild(inputContainer)
+    newPasswordRow.insertCell().appendChild(usernameContainer)
+    newPasswordRow.insertCell().appendChild(passwordContainer)
     for (const cell of newPasswordRow.cells) {
         cell.className = "no-padding"
     }
@@ -88,7 +108,7 @@ const createPassword = async (event) => {
     const newPasswordForm = document.createElement("form")
     wrap(table, newPasswordForm)
     const saveButton = document.createElement("button")
-    saveButton.innerHTML="<i>save</i>"
+    saveButton.innerHTML = "<i>save</i>"
     saveButton.id = "saveButton"
     saveButton.className = "edit-save-button transparent circle"
     const functionCell = newPasswordRow.insertCell()
@@ -151,23 +171,38 @@ const editPassword = async (event, id, rowIndex) => {
     websiteField.value = websiteCell.textContent
     websiteField.spellcheck = false
     websiteField.className = "tiny-padding"
+    websiteField.id = "websiteField"
+    const websiteLabel = document.createElement("label")
+    websiteLabel.htmlFor = "websiteField"
+    websiteLabel.innerHTML = "Website"
     const usernameField = document.createElement("input")
     usernameField.type = "text"
     usernameField.value = usernameCell.textContent
     usernameField.spellcheck = false
     usernameField.className = "tiny-padding"
+    usernameField.id = "usernameField"
+    const usernameLabel = document.createElement("label")
+    usernameLabel.htmlFor = "usernameField"
+    usernameLabel.innerHTML = "Username"
     const passwordField = document.createElement("input")
     passwordField.type = "text"
     passwordField.value = passwordCell.textContent
     passwordField.spellcheck = false
     passwordField.className = "tiny-padding"
+    passwordField.id = "passwordField"
+    const passwordLabel = document.createElement("label")
+    passwordLabel.htmlFor = "passwordField"
+    passwordLabel.innerHTML = "Password"
     const webInputContainer = document.createElement("div")
     webInputContainer.className = "field border"
     const userInputContainer = webInputContainer.cloneNode()
     const passInputContainer = webInputContainer.cloneNode()
     webInputContainer.appendChild(websiteField)
+    webInputContainer.appendChild(websiteLabel)
     userInputContainer.appendChild(usernameField)
+    userInputContainer.appendChild(usernameLabel)
     passInputContainer.appendChild(passwordField)
+    passInputContainer.appendChild(passwordLabel)
     websiteCell.replaceWith(webInputContainer)
     webInputContainer.parentElement.className = "no-padding"
     usernameCell.replaceWith(userInputContainer)
@@ -251,11 +286,11 @@ const setUserName = async () => {
         method: "GET"
     })
     const accountContainer = document.createElement("div")
-    accountContainer.className="accountContainer bottom-margin"
+    accountContainer.className = "accountContainer bottom-margin"
     const userString = await response.text()
     const user = JSON.parse(userString)
-    accountContainer.innerHTML=`<span><img src="${user.avatar_url}" class="circle tiny small-margin right-margin" alt="avatar image"> <span class="large-text">${user.username}</span></span> <button id="logout" class="small circle absolute right"><i>logout</i></button>`
-    mainContainer.insertBefore(accountContainer,header)
+    accountContainer.innerHTML = `<span><img src="${user.avatar_url}" class="circle tiny small-margin right-margin" alt="avatar image"> <span class="large-text">${user.username}</span></span> <button id="logout" class="small circle absolute right"><i>logout</i></button>`
+    mainContainer.insertBefore(accountContainer, header)
 }
 window.onload = async function () {
     createPasswordTable()

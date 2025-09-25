@@ -1,10 +1,3 @@
-Assignment 3 - Persistence: Two-tier Web Application with Database, Express server, and CSS template
-===
-
-Check out the [CS 4241 Guides](https://github.com/jmcuneo/cs4241-guides) for help with the technologies discussed in this assignment.
-
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), 
-a database (mongodb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
 
 Baseline Requirements
 ---
@@ -57,65 +50,7 @@ Below are suggested technical and design achievements. You can use these to help
 *Technical*
 - (10 points) Implement OAuth authentication, perhaps with a library like [passport.js](http://www.passportjs.org/). *You must either use Github authenticaion or provide a username/password to access a dummy account*. Course staff cannot be expected, for example, to have a personal Facebook, Google, or Twitter account to use when grading this assignment. Please contact the course staff if you have any questions about this. THIS IS THE HARDEST ACHEIVEMENT OFFERED IN WEBWARE. You have been warned!  
 - (5 points) Instead of Render, host your site on a different service. Find a service that is reputable and has a free tier. Post your findings on Slack in the #assignment3 channel. DO NOT feel compelled to purchase a paid tier from any service, although if you already have one, you are welcome to use it. Make sure to describe this a bit in your README. What was better about using the service you chose as compared to Render? What (if anything) was worse? 
-- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.  
-
-*Design/UX*
-- (10 points) Make your site accessible using the [resources and hints available from the W3C](https://www.w3.org/WAI/). Implement/follow twelve tips from their [tips for writing](https://www.w3.org/WAI/tips/writing/), [tips for designing](https://www.w3.org/WAI/tips/designing/), and [tips for development](https://www.w3.org/WAI/tips/developing/). *Note that all twelve must require active work on your part*. For example, even though your page will most likely not have a captcha, you don't get this as one of your twelve tips to follow because you're effectively 
-getting it "for free" without having to actively change anything about your site. Contact the course staff if you have any questions about what qualifies and doesn't qualify in this regard.
-List each tip that you followed and describe what you did to follow it in your site.
-- (5 points) Describe how your site uses the CRAP principles in the Non-Designer's Design Book readings. Which element received the most emphasis (contrast) on each page? How did you use proximity to organize the visual information on your page? What design elements (colors, fonts, layouts, etc.) did you use repeatedly throughout your site? How did you use alignment to organize information and/or increase contrast for particular elements. Write a paragraph of at least 125 words *for each of four principles* (four paragraphs, 500 words in total). 
-
-
-FAQ
----
-**Q: Am I required modify my A2 submission for this assignment?**
-
-No. If you want to start fresh for A3, you are welcome to do so. The option to start with A2 is simply there as a convenience for you.
-
-**Q: Which CSS framework should I use? How do I use it?**
-
-This is for you to figure out. While we do require Express and MongoDB for this assignment, we do not require a specific CSS framework, so we are not going to be discussing a specific one. You will be responsible for choosing a CSS framework and learning how to use it.
-
-**Q: How do I keep my .env file out of my git repo?**
-
-Create a .gitignore file on your local machine and list your .env file in it. Note that while your .env file should NOT appear in your repo, you will still want to [add it to your Render project](https://render.com/docs/configure-environment-variables) so that your website runs successfully.
-
-**Q: I'm confused about how user accounts work for this assignment.**
-
-For the base requirements (discounting the achievements), it should follow this logic:
-
-1. If the user logs in and the account does not exist, create the account and inform the user the account has been created.
-2. If the user logs in and the account exists but the password is incorrect, inform the user.
-3. If the user logs in, the account exists, and the password is correct, then take the user to the page that shows the data specific to the user.
-
-Note that implementing some of the technical achievements may override this requirement, which is fine.
-
-**Q: I'm getting a syntax error when trying to connect to MongoDB using the code in the tutorial.**
-
-Your version of Node may be outdated. Check out [this link](https://stackoverflow.com/questions/77749884/session-options-session-syntaxerror-unexpected-token-mongoose-give-a) for more information.
-
-**Q: Do I have to handle multiple user accounts?**
-
-No. You only need one dummy account UNLESS you are doing the GitHub login technical achievement. Make sure you mention in your README how the user should log in!
-
-**Q: If we use OAuth for logging in, do we still need the same pattern of behavior from the website when logging in (as described above)?**
-
-Yes, insofar as the logged in user should still be taken to a page with the user's data, the login should fail for the incorrect password, and a new account should be created if the username is unrecognized.
-
-Note that if you are doing OAuth, this last part might be difficult (especially if you are doing GitHub authentication). If that's the case, then the user should be taken to a page where they can create an account for your site.
-
-**Q: Does "HTML input tags and form fields of various flavors" mean that we need to use multiple different kinds of inputs, or does it mean that we just need to use some form of input?**
-
-You should have at least two different input types for this assignment. The purpose is to show your understanding beyond the simple `input` type you saw in A2.
-
-**Q: Am I allowed to use other libraries/frameworks/etc. in this assignment?**
-
-Yes, so long as those are IN ADDITION TO Express, MongoDB, and a CSS framework of your choice. Describe in your README any additional libraries or frameworks you used for this assignment. Also remember that the staff might not be familiar with these, so we may be unable to help you if you run into technical problems.
-
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
+- (5 points) Get 100% (not 98%, not 99%, but 100%) in all four lighthouse tests required for this assignment.
 ## Material Password Manager
 
 https://a3-christopher-yon.vercel.app/
