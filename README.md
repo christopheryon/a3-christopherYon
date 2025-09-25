@@ -120,14 +120,17 @@ Sample Readme (delete the above when you're ready to submit, and modify the belo
 
 https://a3-christopher-yon.vercel.app/
 
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why
-  - include any modifications to the CSS framework you made via custom CSS you authored
-- a list of Express middleware packages you used and a short (one sentence) summary of what each one does. If you use a custom function, please add a little more detail about what it does.
+The goal of the application was to create a visually appealing and easy-to-use web-based password manager. One challenge I encountered while developing the application was converting my custom CSS to use the CSS framework, as it overrode many of my customizations and broke the layout while I figured out how to make my application conform to its expectations. However, I was left with much less and much simpler CSS, as the framework handled much of it for me, and I only had to intervene to tweak a few undesirable default behaviors and for small layout refinements. The framework I chose was Beer CSS, as it allowed me to utilize Google's attractive Material Design language with very little effort, even styling many of the standard elements by default. The remaining manual CSS was used to cleanly enforce some of the layout decisions I had made in A2, as well as to change the default color scheme using their tool to auto-generate the relevant CSS variables and keep the button animations from A2 that added expressiveness to the application. Another challenge I faced was getting authentication to work. My authentication strategy was GitHub OAuth using the Passport middleware, which I chose because it seemed like it would handle a lot of implementation details for me while striving for the OAuth technical achievement. While the GitHub strategy package maintainers provided some examples that worked out of the box, I had to research each part of their implementation to figure out how to adapt it to my specific use case. This resulted in me learning several other components, including `express-session` for session management along with `connect-mongodb-session` to keep track of sessions between server restarts. Lastly, the MongoDB documentation was a little hard to understand for me, so I had to go through some trial and error before I had it working the way I wanted it to. The Express middleware packages I used:  
+- express.json
+  - For sending JSON in requests
+- express-session
+  - For session management
+- passport
+  - For authentication along with passport-github2
+- express.static
+  - For serving static resources with minimal implementation
+- ensureAuthenticated custom function
+  - To redirect unauthenticated users to the login page when accessing a route that requires authentication
 
 ## Technical Achievements
 - **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
